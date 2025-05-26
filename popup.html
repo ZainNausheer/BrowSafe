@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BrowSafe - Website Safety</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 w-80 font-sans">
+    <h1 class="text-xl font-bold text-gray-800 mb-4 text-center">BrowSafe</h1>
+    <div id="loading" class="hidden animate-pulse text-center fade-in">
+        <p class="text-gray-600">Checking...</p>
+    </div>
+    <div id="result" class="hidden fade-in">
+        <p id="status" class="text-lg font-semibold text-center"></p>
+        <p id="confidence" class="text-base text-blue-600 mt-2 text-center"></p>
+        <p id="reasons" class="text-red-600 mt-2 text-base font-semibold"></p>
+        <a id="know-more" href="" target="_blank" class="hidden text-blue-500 underline hover:text-blue-700 mt-2 inline-block"></a>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

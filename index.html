@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrowSafe - Secure Browsing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        .animate-pulse { animation: pulse 1.5s infinite; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-blue-600 text-white py-6 text-center">
+        <h1 class="text-3xl font-bold">BrowSafe</h1>
+        <p class="mt-2 text-lg">NextGen Browser Plugins for Phishing Detection and Mitigation</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6">
+        <!-- URL Input and Check Button -->
+        <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Check Website Safety</h2>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <input id="url-input" type="text" placeholder="Enter website URL (e.g., https://example.com)"
+                       class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="check-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                    Check Now
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="hidden text-center animate-pulse fade-in">
+            <p class="text-gray-600 text-lg">Checking website safety...</p>
+        </div>
+
+        <!-- Results -->
+        <section id="result" class="hidden bg-white shadow-md rounded-lg p-6 mb-6 fade-in">
+            <h2 id="status" class="text-2xl font-semibold text-center"></h2>
+            <p id="confidence" class="text-lg text-blue-600 mt-2 text-center"></p>
+            <div id="reasons" class="mt-4"></div>
+        </section>
+
+        <!-- Recent Checks -->
+        <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Checks</h2>
+            <div id="history"></div>
+        </section>
+
+        <!-- How Detection Confidence is Calculated -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">How We Calculate Detection Confidence</h2>
+            <p class="text-gray-700 mb-4">
+                At BrowSafe, our detection confidence score (0%–100%) tells you how certain we are that a website is safe or unsafe. This score is designed to be reliable and transparent, combining advanced technology with smart analysis to protect you from phishing, malware, and other online threats.
+            </p>
+            <ul class="list-disc pl-6 text-gray-700 mb-4 space-y-2">
+                <li>
+                    <strong>Google Safe Browsing (70% of the Score):</strong> We use Google’s Safe Browsing API, trusted by billions of devices worldwide, to check if a website is listed as dangerous. It scans for known phishing, malware, and social engineering threats, giving us a highly accurate starting point.
+                </li>
+                <li>
+                    <strong>URL Feature Analysis (30% of the Score):</strong> Our custom system examines the website’s URL for suspicious traits, such as unusual length, special characters, or keywords like “login” or “secure.” This helps catch new threats that might not yet be in Google’s database.
+                </li>
+                <li>
+                    <strong>Combined Confidence:</strong> We blend these two scores, with a heavier weight on Google’s proven technology, to create a final confidence score. To ensure reliability, we cap the score between 10% and 90%, reflecting real-world uncertainties.
+                </li>
+            </ul>
+            <p class="text-gray-700">
+                <strong>Example:</strong> If a website is flagged for phishing by Google Safe Browsing and has a suspicious URL, we might show a “Detection Confidence: 70%” that it’s unsafe, meaning there’s a strong chance it’s dangerous. For safe websites, you’ll see a higher score, like 90%. This score helps you make informed decisions while browsing.
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center py-4">
+        <p>&copy; 2025 BrowSafe. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

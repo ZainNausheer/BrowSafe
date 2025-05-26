@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "BrowSafe",
+  "version": "1.0",
+  "description": "NextGen Browser Plugin for Phishing Detection and Mitigation",
+  "permissions": ["activeTab", "tabs", "storage"],
+  "icons": {
+    "48": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
