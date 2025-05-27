@@ -4,13 +4,17 @@ import requests
 from uuid import uuid4
 import re
 from urllib.parse import urlparse
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
 # Google Safe Browsing API key
-API_KEY = "AIzaSyAhYSUQNGvYm0-bljArv7NbB22blz5qarg"
-SAFE_BROWSING_URL = f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={API_KEY}"
+api_key = os.getenv("GOOGLE_API_KEY")
+SAFE_BROWSING_URL = f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={api_key}"
 
 # Attack type descriptions
 ATTACK_DESCRIPTIONS = {
