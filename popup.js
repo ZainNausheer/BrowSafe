@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    // Set the Live Server port here (update if different from 5500)
+    // Set the Live Server port here (update if different from 5500) http://127.0.0.1:5000/check
     const LIVE_SERVER_PORT = 5500;
 
     const loading = document.getElementById("loading");
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         let url = tabs[0].url;
 
         try {
-            let response = await fetch("http://127.0.0.1:5000/check", {
+            let response = await fetch("https://browsafe.onrender.com/check", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ url }),

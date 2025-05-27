@@ -1,3 +1,4 @@
+// http://127.0.0.1:5000/check 
 document.addEventListener("DOMContentLoaded", () => {
     const urlInput = document.getElementById("url-input");
     const checkBtn = document.getElementById("check-btn");
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         result.classList.add("hidden");
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/check", {
+            const response = await fetch("https://browsafe.onrender.com/check", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ url }),
