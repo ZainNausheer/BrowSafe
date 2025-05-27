@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
 from uuid import uuid4
@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
 # Google Safe Browsing API key
@@ -19,7 +19,7 @@ SAFE_BROWSING_URL = f"https://safebrowsing.googleapis.com/v4/threatMatches:find?
 # Attack type descriptions
 ATTACK_DESCRIPTIONS = {
     "Malware": {
-        "description": "Malware, short for malicious software, refers to a wide range of harmful programs designed to infiltrate and damage computers, networks, or devices without user consent. These include viruses that corrupt files, worms that spread across networks, ransomware that locks critical data for ransom, and spyware that silently collects sensitive information like passwords or financial details. Malware often spreads through deceptive tactics, such as fake software updates, malicious email attachments, or compromised websites, posing severe risks to user privacy, data integrity, and system functionality. Attackers exploit vulnerabilities in outdated software or rely on user error to gain unauthorized access, making malware a persistent and evolving threat in the digital landscape. Its impact can range from minor performance issues to catastrophic data breaches, affecting individuals, businesses, and critical infrastructure alike.",
+        " "description": "Malware, short for malicious software, refers to a wide range of harmful programs designed to infiltrate and damage computers, networks, or devices without user consent. These include viruses that corrupt files, worms that spread across networks, ransomware that locks critical data for ransom, and spyware that silently collects sensitive information like passwords or financial details. Malware often spreads through deceptive tactics, such as fake software updates, malicious email attachments, or compromised websites, posing severe risks to user privacy, data integrity, and system functionality. Attackers exploit vulnerabilities in outdated software or rely on user error to gain unauthorized access, making malware a persistent and evolving threat in the digital landscape. Its impact can range from minor performance issues to catastrophic data breaches, affecting individuals, businesses, and critical infrastructure alike.",
         "prevention": [
             "Install and regularly update reputable antivirus software to detect and neutralize malware threats.",
             "Avoid downloading files or software from unverified websites or peer-to-peer networks.",
@@ -163,10 +163,17 @@ def check():
     result = check_website_safety(url)
     return jsonify(result)
 
+# Serve index.html at the root URL
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+# Serve other static files (CSS, JS, etc.)
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
+
 if __name__ == '__main__':
     import os
     port = int(os.environ.get("PORT", 5000))  # Use PORT env var, default to 5000 locally
     app.run(host="0.0.0.0", port=port, debug=True)
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
