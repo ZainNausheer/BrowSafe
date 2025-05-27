@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__)  # Removed static_folder and static_url_path
 CORS(app)
 
 # Google Safe Browsing API key
@@ -25,7 +25,7 @@ ATTACK_DESCRIPTIONS = {
             "Avoid downloading files or software from unverified websites or peer-to-peer networks.",
             "Enable a robust firewall to block unauthorized network connections.",
             "Keep your operating system and applications updated to patch known security vulnerabilities.",
-            "Exercise caution with email attachments and links, verifying the sender’s identity before interaction.",
+            "Exercise caution with email attachments and links, verifying the sender's identity before interaction.",
             "Use ad-blockers to minimize exposure to malicious advertisements that may deliver malware.",
             "Regularly back up critical data to an external or cloud-based storage solution."
         ]
@@ -50,7 +50,7 @@ ATTACK_DESCRIPTIONS = {
             "Read user reviews and research applications before downloading to identify potential risks.",
             "Use anti-malware tools to regularly scan and remove unwanted programs from your device.",
             "Monitor your browser for unauthorized extensions, toolbars, or altered settings.",
-            "Uninstall unfamiliar or suspicious applications promptly through your system’s control panel.",
+            "Uninstall unfamiliar or suspicious applications promptly through your system's control panel.",
             "Keep your browser and security software updated to block known unwanted software threats."
         ]
     },
@@ -163,17 +163,16 @@ def check():
     result = check_website_safety(url)
     return jsonify(result)
 
-# Serve index.html at the root URL
+# Serve index.html at the root URL (now from main directory)
 @app.route('/')
 def serve_index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return send_from_directory('.', 'index.html')
 
-# Serve other static files (CSS, JS, etc.)
-@app.route('/<path:path>')
-def serve_static(path):
-    return send_from_directory(app.static_folder, path)
+# Serve other static files (CSS, JS, etc.) from main directory
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('.', filename)
 
 if __name__ == '__main__':
-    import os
-    port = int(os.environ.get("PORT", 5000))  # Use PORT env var, default to 5000 locally
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)  # Set debug=False for production
